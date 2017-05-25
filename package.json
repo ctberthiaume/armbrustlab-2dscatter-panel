@@ -1,5 +1,5 @@
 {
-  "name": "armbrustlab-twod-panel",
+  "name": "armbrustlab-2dscatter-panel",
   "version": "0.0.4",
   "description": "2D scatter plots panel plugin for Grafana",
   "main": "src/module.js",
@@ -18,7 +18,7 @@
   "license": "MIT",
   "repository" : {
     "type" : "git",
-    "url" : "https://github.com/ctberthiaume/armbrustlab-twod-panel.git"
+    "url" : "https://github.com/ctberthiaume/armbrustlab-2dscatter-panel.git"
   },
   "devDependencies": {
     "babel": "~6.5.1",

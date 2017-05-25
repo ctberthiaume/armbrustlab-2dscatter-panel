@@ -1,12 +1,12 @@
 {
   "type": "panel",
-  "name": "TwoDScatter",
-  "id": "armbrustlab-twod-panel",
+  "name": "2DScatter",
+  "id": "armbrustlab-2dscatter-panel",
 
   "info": {
     "description": "2D scatter plots panel plugin for Grafana",
     "author": {
-      "name": "Chris Berthiaume <chrisbee@uw.edu>"
+      "name": "chrisbee@uw.edu"
     },
     "keywords": [ "flot", "scatter", "panel" ],
     "logos": {
@@ -14,7 +14,7 @@
       "large": "img/plotly_logo.svg"
     },
     "links": [
-      {"name": "Project Page", "url": "https://github.com/ctberthiaume/armbrustlab-twod-panel.git"}
+      {"name": "Project Page", "url": "https://github.com/ctberthiaume/armbrustlab-2dscatter-panel.git"}
     ],
     "version": "0.0.4",
     "updated": "2017-05-25"

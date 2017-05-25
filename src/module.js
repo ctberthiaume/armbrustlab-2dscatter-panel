@@ -95,8 +95,8 @@ class TwoDPanelCtrl extends MetricsPanelCtrl {
   }
 
   onInitEditMode() {
-    this.addEditorTab('Axes', 'public/plugins/armbrustlab-twod-panel/axes_editor.html', 2);
-    this.addEditorTab('Display', 'public/plugins/armbrustlab-twod-panel/tab_display.html', 3);
+    this.addEditorTab('Axes', 'public/plugins/armbrustlab-2dscatter-panel/axes_editor.html', 2);
+    this.addEditorTab('Display', 'public/plugins/armbrustlab-2dscatter-panel/tab_display.html', 3);
     this.subTabIndex = 0;
   }
 
