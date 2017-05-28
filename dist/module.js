@@ -1,9 +1,9 @@
 'use strict';
 
-System.register(['app/plugins/sdk', 'app/plugins/panel/graph/threshold_manager', 'app/core/utils/kbn', 'lodash', 'moment', './css/style.css!'], function (_export, _context) {
+System.register(['app/plugins/sdk', 'app/plugins/panel/graph/threshold_manager', 'app/core/utils/kbn', 'app/core/config', 'lodash', 'moment', './css/style.css!'], function (_export, _context) {
   "use strict";
 
-  var MetricsPanelCtrl, ThresholdManager, kbn, _, moment, _createClass, panelDefaults, TwoDPanelCtrl;
+  var MetricsPanelCtrl, ThresholdManager, kbn, config, _, moment, _createClass, panelDefaults, TwoDPanelCtrl;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -42,6 +42,8 @@ System.register(['app/plugins/sdk', 'app/plugins/panel/graph/threshold_manager',
       ThresholdManager = _appPluginsPanelGraphThreshold_manager.ThresholdManager;
     }, function (_appCoreUtilsKbn) {
       kbn = _appCoreUtilsKbn.default;
+    }, function (_appCoreConfig) {
+      config = _appCoreConfig.default;
     }, function (_lodash) {
       _ = _lodash.default;
     }, function (_moment) {
@@ -149,6 +151,7 @@ System.register(['app/plugins/sdk', 'app/plugins/panel/graph/threshold_manager',
           value: function onPanelTeardown() {
             //console.log('teardown');
             $('#' + this.panelId).empty();
+            //this.$timeout.cancel(this.nextTickPromise);
           }
         }, {
           key: 'onRefresh',
@@ -218,6 +221,9 @@ System.register(['app/plugins/sdk', 'app/plugins/panel/graph/threshold_manager',
             $('#' + this.panelId).plot(this.plotdata.data, options);
             // Hover event handler
             $('#' + this.panelId).bind('plothover', _.throttle(this.createPlotHoverHandler(), 50));
+            // Manually apply theme css
+            this.styleTheme();
+
             this.renderingCompleted();
           }
         }, {
@@ -492,6 +498,15 @@ System.register(['app/plugins/sdk', 'app/plugins/panel/graph/threshold_manager',
             axis.options.max = panelOptions.max;
             axis.options.min = panelOptions.min;
             //}
+          }
+        }, {
+          key: 'styleTheme',
+          value: function styleTheme() {
+            if (config.bootData.user.lightTheme) {
+              $('.legend > div').css('background-color', 'rgb(255,255,255)');
+            } else {
+              $('.legend > div').css('background-color', 'rgb(25,25,25)');
+            }
           }
         }]);
 

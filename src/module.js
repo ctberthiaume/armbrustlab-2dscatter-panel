@@ -1,7 +1,7 @@
-
 import {MetricsPanelCtrl} from  'app/plugins/sdk';
 import {ThresholdManager} from 'app/plugins/panel/graph/threshold_manager';
 import kbn from 'app/core/utils/kbn';
+import config from 'app/core/config';
 
 import _ from 'lodash';
 import moment from 'moment';
@@ -88,6 +88,7 @@ class TwoDPanelCtrl extends MetricsPanelCtrl {
   onPanelTeardown() {
     //console.log('teardown');
     $('#' + this.panelId).empty();
+    //this.$timeout.cancel(this.nextTickPromise);
   }
 
   onRefresh() {
@@ -155,6 +156,9 @@ class TwoDPanelCtrl extends MetricsPanelCtrl {
     $('#' + this.panelId).plot(this.plotdata.data, options);
     // Hover event handler
     $('#' + this.panelId).bind('plothover', _.throttle(this.createPlotHoverHandler(), 50));
+    // Manually apply theme css
+    this.styleTheme();
+
     this.renderingCompleted();
   }
 
@@ -405,6 +409,14 @@ class TwoDPanelCtrl extends MetricsPanelCtrl {
     axis.options.max = panelOptions.max;
     axis.options.min = panelOptions.min;
     //}
+  }
+
+  styleTheme() {
+    if (config.bootData.user.lightTheme) {
+      $('.legend > div').css('background-color', 'rgb(255,255,255)');
+    } else {
+      $('.legend > div').css('background-color', 'rgb(25,25,25)');
+    }
   }
 }
 TwoDPanelCtrl.templateUrl = 'module.html';

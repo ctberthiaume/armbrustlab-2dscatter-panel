@@ -16,8 +16,8 @@
     "links": [
       {"name": "Project Page", "url": "https://github.com/ctberthiaume/armbrustlab-2dscatter-panel.git"}
     ],
-    "version": "0.0.4",
-    "updated": "2017-05-25"
+    "version": "0.0.5",
+    "updated": "2017-05-28"
   },
 
   "dependencies": {
