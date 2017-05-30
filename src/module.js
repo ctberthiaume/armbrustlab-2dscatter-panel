@@ -44,7 +44,9 @@ class TwoDPanelCtrl extends MetricsPanelCtrl {
 
     this.thresholdManager = new ThresholdManager(this);
 
-    this.panel = _.defaults(this.panel, panelDefaults);
+    // Must use defaultsDeep here to avoid sharing axis, range state as class
+    // variables
+    _.defaultsDeep(this.panel, panelDefaults);
 
     this.plotdata = {
       data: [],
@@ -63,6 +65,11 @@ class TwoDPanelCtrl extends MetricsPanelCtrl {
     this.unitFormats = kbn.getUnitFormats();
 
     this.$tooltip = $('<div class="graph-tooltip">');
+
+    // Need to debounce plot drawing. Otherwise plot gets drawn with stale
+    // height received from enclosing div. Debouncing give the div time to
+    // achieve a stable height before flot plotting.
+    this.debouncedDraw = _.debounce(this.draw.bind(this), 50);
 
     this.events.on('init-edit-mode', this.onInitEditMode.bind(this));
     this.events.on('render', this.onRender.bind(this));
@@ -102,7 +109,10 @@ class TwoDPanelCtrl extends MetricsPanelCtrl {
   }
 
   onRender() {
-    //console.log('flot ' + this.panel.id + ' render');
+    this.debouncedDraw();
+  }
+
+  draw() {
     $('#' + this.panelId).empty();
 
     if (this.plotdata.data.length === 0) {
@@ -258,7 +268,6 @@ class TwoDPanelCtrl extends MetricsPanelCtrl {
       min: this.panel.yaxes[0].min ? _.toNumber(this.panel.yaxes[0].min) : null,
       max: this.panel.yaxes[0].max ? _.toNumber(this.panel.yaxes[0].max) : null,
     };
-
     options.yaxes.push(defaults);
 
     if (_.find(this.plotdata.data, {yaxis: 2})) {
