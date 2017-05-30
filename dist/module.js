@@ -124,10 +124,11 @@ System.register(['app/plugins/sdk', 'app/plugins/panel/graph/threshold_manager',
 
           _this.$tooltip = $('<div class="graph-tooltip">');
 
-          // Need to debounce plot drawing. Otherwise plot gets drawn with stale
-          // height received from enclosing div. Debouncing give the div time to
-          // achieve a stable height before flot plotting.
-          _this.debouncedDraw = _.debounce(_this.draw.bind(_this), 50);
+          // Need to throttle plot drawing on the trailing side of the timeout.
+          // Otherwise plot gets drawn with stale height received from enclosing div.
+          // Plotting at the end of the wait period give the div time to achieve a
+          // stable height before flot plotting.
+          _this.throttledDraw = _.throttle(_this.draw.bind(_this), 100, { leading: false, trailing: true });
 
           _this.events.on('init-edit-mode', _this.onInitEditMode.bind(_this));
           _this.events.on('render', _this.onRender.bind(_this));
@@ -175,7 +176,7 @@ System.register(['app/plugins/sdk', 'app/plugins/panel/graph/threshold_manager',
         }, {
           key: 'onRender',
           value: function onRender() {
-            this.debouncedDraw();
+            this.throttledDraw();
           }
         }, {
           key: 'draw',

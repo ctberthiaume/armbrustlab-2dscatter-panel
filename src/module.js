@@ -66,10 +66,11 @@ class TwoDPanelCtrl extends MetricsPanelCtrl {
 
     this.$tooltip = $('<div class="graph-tooltip">');
 
-    // Need to debounce plot drawing. Otherwise plot gets drawn with stale
-    // height received from enclosing div. Debouncing give the div time to
-    // achieve a stable height before flot plotting.
-    this.debouncedDraw = _.debounce(this.draw.bind(this), 50);
+    // Need to throttle plot drawing on the trailing side of the timeout.
+    // Otherwise plot gets drawn with stale height received from enclosing div.
+    // Plotting at the end of the wait period give the div time to achieve a
+    // stable height before flot plotting.
+    this.throttledDraw = _.throttle(this.draw.bind(this), 100, {leading: false, trailing: true});
 
     this.events.on('init-edit-mode', this.onInitEditMode.bind(this));
     this.events.on('render', this.onRender.bind(this));
@@ -109,7 +110,7 @@ class TwoDPanelCtrl extends MetricsPanelCtrl {
   }
 
   onRender() {
-    this.debouncedDraw();
+    this.throttledDraw();
   }
 
   draw() {
