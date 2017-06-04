@@ -201,10 +201,10 @@ class TwoDPanelCtrl extends MetricsPanelCtrl {
         }
         if (xoffset < dataList[0].datapoints.length) {
           d.datapoints.forEach((val, j) => {
-            if (_.isFinite(dataList[0].datapoints[j][0])) {
+            if (_.isFinite(dataList[0].datapoints[j+xoffset][0])) {
               // Only keep values with defined x, but keep null y to create
               // discontinuous segments
-              xy.push([dataList[0].datapoints[j][0], val[0]]);
+              xy.push([dataList[0].datapoints[j+xoffset][0], val[0]]);
               ts.push(val[1]);  // time for hover tooltip
               if (val[0] > maxy) maxy = val[0];
               if (val[0] < logminy && val[0] > 0) logminy = val[0];
