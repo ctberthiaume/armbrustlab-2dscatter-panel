@@ -191,16 +191,26 @@ class TwoDPanelCtrl extends MetricsPanelCtrl {
         const ts = [];
         let maxy = -Number.MAX_VALUE;
         let logminy = Number.MAX_VALUE;
-        d.datapoints.forEach((val, j) => {
-          if (_.isFinite(dataList[0].datapoints[j][0])) {
-            // Only keep values with defined x, but keep null y to create
-            // discontinuous segments
-            xy.push([dataList[0].datapoints[j][0], val[0]]);
-            ts.push(val[1]);  // time for hover tooltip
-            if (val[0] > maxy) maxy = val[0];
-            if (val[0] < logminy && val[0] > 0) logminy = val[0];
+        let xoffset = 0;
+        // If this Y doesn't align with the beginning of the X range,
+        // search forward to find the offset into X where it does...
+        if (dataList[0].datapoints[0][1] !== d.datapoints[0][1]) {
+          for (xoffset = 0; xoffset < dataList[0].datapoints.length; xoffset++) {
+            if (dataList[0].datapoints[xoffset][1] === d.datapoints[0][1]) break;
           }
-        });
+        }
+        if (xoffset < dataList[0].datapoints.length) {
+          d.datapoints.forEach((val, j) => {
+            if (_.isFinite(dataList[0].datapoints[j][0])) {
+              // Only keep values with defined x, but keep null y to create
+              // discontinuous segments
+              xy.push([dataList[0].datapoints[j][0], val[0]]);
+              ts.push(val[1]);  // time for hover tooltip
+              if (val[0] > maxy) maxy = val[0];
+              if (val[0] < logminy && val[0] > 0) logminy = val[0];
+            }
+          });
+        }
         if (maxy === -Number.MAX_VALUE) maxy = null;
         if (logminy === Number.MAX_VALUE) logminy = null;
         this.plotdata.data.push({
