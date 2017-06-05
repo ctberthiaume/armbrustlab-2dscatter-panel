@@ -1,6 +1,6 @@
 {
   "name": "armbrustlab-2dscatter-panel",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "2D scatter plots panel plugin for Grafana",
   "main": "src/module.js",
   "scripts": {
