@@ -1,6 +1,6 @@
 ## Flot scatter plot panel for Grafana
 
-* Unlike the default Grafana plot panel, the x-axis does not have to be time.
+* Supports non-time x-axis.
 * Create two or more InfluxDB queries.
 * The first query will be x-axis values.
 * Any additional series (either from single queries or results of group by) will be y-axis values.
