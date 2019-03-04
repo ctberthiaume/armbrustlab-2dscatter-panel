@@ -15,7 +15,7 @@ Then restart Grafana to pick up the new plugin.
 Or if you want to start from a fresh grunt pipeline build.
 
 ```
-npm install
+yarn install --pure-lockfile
 grunt
 cp -r dist /var/lib/grafana/plugins/armbrustlab-twodscatter-panel
 ```

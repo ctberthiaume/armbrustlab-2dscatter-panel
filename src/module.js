@@ -1,5 +1,5 @@
 import {MetricsPanelCtrl} from  'app/plugins/sdk';
-import {ThresholdManager} from 'app/plugins/panel/graph/threshold_manager';
+//import {ThresholdManager} from 'app/plugins/panel/graph/threshold_manager';
 import kbn from 'app/core/utils/kbn';
 import config from 'app/core/config';
 
@@ -42,7 +42,7 @@ class TwoDPanelCtrl extends MetricsPanelCtrl {
     this.$rootScope = $rootScope;
     this.panelId = 'twod' + this.panel.id;
 
-    this.thresholdManager = new ThresholdManager(this);
+    //this.thresholdManager = new ThresholdManager(this);
 
     // Must use defaultsDeep here to avoid sharing axis, range state as class
     // variables
@@ -412,7 +412,7 @@ class TwoDPanelCtrl extends MetricsPanelCtrl {
       .appendTo($('#' + this.panelId));
     }*/
 
-    this.thresholdManager.draw(plot);
+    //this.thresholdManager.draw(plot);
   }
 
   processOffsetHook(plot, gridMargin) {
