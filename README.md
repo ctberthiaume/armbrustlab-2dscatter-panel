@@ -7,6 +7,8 @@
 
 ### Install
 
+This plugin has been tested against Grafana 6.
+
 ```
 cp -r dist /var/lib/grafana/plugins/armbrustlab-twodscatter-panel
 ```
@@ -20,3 +22,13 @@ grunt
 cp -r dist /var/lib/grafana/plugins/armbrustlab-twodscatter-panel
 ```
 And restart Grafana.
+
+#### Docker image
+
+To build a docker image with this plugin at `/var/lib/grafana/plugins/armbrustlab-2dscatter-panel` and Grafana 6.0.0.
+
+```
+docker build --build-args GRAFANA_VERSION=6.0.0 -t grafana .
+```
+
+To run, follow instructions in Grafana docs at [http://docs.grafana.org/installation/docker/](http://docs.grafana.org/installation/docker/).
