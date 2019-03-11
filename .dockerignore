@@ -1,0 +1,7 @@
+src
+node_modules
+*.js
+*.json
+*.md
+*.lock
+LICENSE
